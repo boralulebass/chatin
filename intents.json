@@ -1,0 +1,87 @@
+{"intents":[
+    {
+        "tag": "selamlaşma",
+        "patterns": ["merhaba", "selam", "selamlar", "hey"],
+        "responses": ["Merhaba!", "Selam!", "İyi günler!", "Selam :)"]
+    },
+    {
+        "tag": "hal hatır sorma",
+        "patterns": ["naber", "nasılsın", "iyi misin?", "nasıl gidiyor?"],
+        "responses": ["İyiyim teşekkür ederim", "İyiyim sağolun", "İyi diyelim iyi olsun"]
+    },
+    {
+        "tag": "hava durumu",
+        "patterns": ["bugün hava nasıl?", "hava durumu", "hava nasıl"],
+        "responses": ["Hava bugün oldukça güneşli.", "Hava güzel görünüyor.", "Bulutlu gözüküyor"]
+    },
+    {
+        "tag": "teşekkür",
+        "patterns": ["teşekkür ederim", "yardımınız için teşekkürler", "sağ ol", "sağol"],
+        "responses": ["Rica ederim!", "Size yardımcı olabildiysem ne mutlu bana.", "Bir şey değil, her zaman buradayım."]
+    },
+    {
+        "tag": "saat",
+        "patterns": ["saat kaç?", "zamanı söylermisiniz?", "saat ne"],
+        "responses": ["Maalesef öyle bir fonksiyonum hernüz yok.", "Saat kaç bilmiyorum", "Bora ile Hakan'a sorun :("]
+    },
+    {
+        "tag": "isim",
+        "patterns": ["adın?", "senin ismin", "ismin nedir?"],
+        "responses": ["Benim adım ChatIn.", "Bana ChatIn diyebilirsiniz.", "İsimim ChatIn." ,"Adım ChatIn ama sen Çetin diyebilirsin."]
+    },
+    {
+        "tag": "günaydın",
+        "patterns": ["günaydın", "günaydın selamlar!"],
+        "responses": ["Günaydın!", "Günaydın, iyi günler!", "Teşekkür ederim, iyi günler dilerim."]
+    },
+    {
+        "tag": "iyi geceler",
+        "patterns": ["iyi geceler", "hoşça kal", "görüşürüz"],
+        "responses": ["İyi geceler!", "Hoşça kalın!", "Görüşmek üzere."]
+    },
+    {
+        "tag": "alıntı",
+        "patterns": ["en sevdiğin alıntı nedir?", "bir alıntı paylaşırmısın?", "favori alıntın ne?","Alıntı yaparmısın?","Bana bir alıntı lazım", "Alıntı örneği"],
+        "responses": ["\"Hayatta en hakiki mürşit ilimdir, fendir.\" - Atatürk", "\"Hayat, kendini düşünmeden faydalı olan bir işe adamaktır.\" - Marie Curie", "\"Dünyada en hakiki mürşit zaman ve mekandır.\" - Mevlana"]
+    },
+    {
+        "tag": "trafik yoğunluğu",
+        "patterns": ["trafik nasıl?", "şehirde yoğunluk var mı?", "şu an trafik durumu nasıl?"],
+        "responses": ["Şu an trafik oldukça yoğun.", "Trafik biraz sıkışık gibi görünüyor.", "Trafik durumu pek iyi değil."]
+    },
+    {
+        "tag": "günlük motivasyon",
+        "patterns": ["bugün için bir motivasyon sözü", "günün motivasyon sözü", "günlük ilham verici söz","motivasyon istiyorum"],
+        "responses": ["Her gün biraz daha ilerlemek için küçük adımlar atın.", "Başarı, her gün biraz daha ilerlemektir.", "Bugün, dün hayalini kurduğunuz yarın için ne yaptınız?"]
+    },
+    {
+        "tag": "yönetici",
+        "patterns": ["yöneticin kimdir?", "yöneticin kim", "yöneticiniz?"],
+        "responses": ["Yöneticimizin adı Murat", "Adı Murat Burhanoğlu"]
+    },
+    {
+        "tag": "şirket",
+        "patterns": ["hangi şirkete çalışıyorsun?", "şirketin", "şirketin ne","nerede çalışıyorsun"],
+        "responses": ["Vodafone", "Vodafone'da Invoicing ekibi için çalışıyorum"]
+    },
+    {
+        "tag": "Fatura üretim süreci",
+        "patterns": ["fatura süreci nasıl geçiyor?","fatura süreci nedir?","fatura nasıl oluşuyor?","faturayı nasıl çıkartıyorsunuz?","fatura üretimi nasıl oluyor?"],
+        "responses": ["Billing ekibinden ham datalar Invoicing ekibine geliyor. Ardından SFX süreçleri ile birlikte ham dataların xlog'ları üretilir, DOC1 uygulamalarımızda fatura üretim işlemleri gerçekleşir ve kanallara aktarım gerçekleşir."]
+    },
+    {
+        "tag": "Cihan",
+        "patterns": ["Cihan'ın arabasına ne oldu?","Cihanın arabası"],
+        "responses": ["Efsanelere göre hala bir yerlerde tamir ediliyor."]
+    },
+    {
+        "tag": "Fiziksel Sistem",
+        "patterns": ["Fiziksel sistem gereksinimlerin neler?","Fiziksel sistemin neye ihtiyaç duyuyor?","Fiziksel sisteminde neler lazım?"],
+        "responses": ["Çok çekirdekli ve yüksek frekansta çalışan bir işlemci: 1.Intel Xeon 2.AMD EPYC\n32GB veya üzeri bir bellek.\nVerilerin depolanabilmesi için yeterli depolam alanı: 1.Hard Disk 2.SSD (Model ve veri setlerine hızlı erişim sağlaması açısından düşünülmeli.)\nGelişmiş soğutma sistemleri (opsiyonel)\nBasic Ağ Topolojisi\n\n "]
+    },
+    {
+        "tag": "Mimari Sistem",
+        "patterns": ["Mimari olarak neler gerekli?","Mimari sisteminde neler olması gerekiyor?","Seni kurabilmek için mimarimizde neler olmalı?"],
+        "responses": ["Örnek olarak sizlere sıralayayım: İşletim Sistemi(Linux): 1.CentOS 2.Ubuntu Server\nPython Ortamı: 1.Python 3.x üzeri sürümler. 2.Sanal ortam yöneticileri  2.1.Virtualenv 2.2.Conda\nPytorch ve Bert\nVeritabanı\nGüvenlik\nMonitoring ve Loglama\nBackup İşlemleri\n"]
+    }
+]}

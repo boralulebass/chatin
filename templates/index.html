@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat-In</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        header {
+            background-color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            color: #333333;
+        }
+        #chat {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-top: 1px solid #cccccc;
+            border-bottom: 1px solid #cccccc;
+        }
+        .message {
+            margin: 10px 0;
+        }
+        .message.user {
+            text-align: right;
+        }
+        #messageInput {
+            display: flex;
+            padding: 10px;
+            background-color: #e0e0e0;
+        }
+        #messageInput input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+        }
+        #messageInput button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4caf50;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #messageInput button.mic {
+            background-color: #2196f3;
+        }
+        #messageInput button.loading {
+            background-color: #ff9800;
+            cursor: not-allowed;
+        }
+        #statusMessage {
+            text-align: center;
+            font-size: 18px;
+            color: #ff9800;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>Chat-In</header>
+    <div id="chat"></div>
+    <div id="messageInput">
+        <input type="text" id="message" placeholder="Mesajınızı yazın..." onkeypress="handleKeyPress(event)">
+        <button onclick="sendMessage()">Gönder</button>
+        <button class="mic" id="micButton" onclick="listenAudio()">🎤</button>
+    </div>
+    <div id="statusMessage"></div>
+
+    <script>
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        }
+
+        async function sendMessage() {
+            const messageInput = document.getElementById('message');
+            const message = messageInput.value;
+            if (message.trim() === '') return;
+
+            addMessageToChat('Siz', message, 'user');
+            messageInput.value = '';
+
+            addLoadingEffect();
+
+            setTimeout(async () => {
+                const response = await fetch('/get_response', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message }),
+                });
+                const data = await response.json();
+                removeLoadingEffect();
+                addMessageToChat(data.bot_name, data.response, 'bot');
+            }, 1000);
+        }
+
+        async function listenAudio() {
+            const micButton = document.getElementById('micButton');
+            const statusMessage = document.getElementById('statusMessage');
+            micButton.disabled = true;
+            micButton.classList.add('loading');
+
+            displayLoadingEffect(statusMessage, micButton);
+
+            const response = await fetch('/listen_audio', { method: 'POST' });
+            const data = await response.json();
+            micButton.disabled = false;
+            micButton.classList.remove('loading');
+            statusMessage.innerText = '';
+            addMessageToChat('Siz', data.message, 'user');
+            addMessageToChat(data.response.bot_name, data.response.response, 'bot');
+        }
+
+        async function displayLoadingEffect(statusMessage, micButton) {
+            statusMessage.innerText = 'Lütfen bekleyiniz...';
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            statusMessage.innerText = 'Dinliyorum...';
+            micButton.disabled = false;
+            micButton.classList.remove('loading');
+        }
+
+        function addLoadingEffect() {
+            const chat = document.getElementById('chat');
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message bot loading';
+            loadingDiv.innerText = 'Chat-In: Yazıyor...';
+            chat.appendChild(loadingDiv);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function removeLoadingEffect() {
+            const chat = document.getElementById('chat');
+            const loadingDiv = chat.querySelector('.loading');
+            if (loadingDiv) {
+                chat.removeChild(loadingDiv);
+            }
+        }
+
+        function addMessageToChat(sender, message, className) {
+            const chat = document.getElementById('chat');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${className}`;
+            messageDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            chat.appendChild(messageDiv);
+            chat.scrollTop = chat.scrollHeight;
+        }
+    </script>
+</body>
+</html>

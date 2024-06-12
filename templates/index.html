@@ -83,9 +83,9 @@
     <div id="statusMessage"></div>
 
     <script>
-        function handleKeyPress(event) {
+        async function handleKeyPress(event) {
             if (event.key === "Enter") {
-                sendMessage();
+                await sendMessage();
             }
         }
 
@@ -155,13 +155,37 @@
             }
         }
 
-        function addMessageToChat(sender, message, className) {
+        function speakText(text) {
+            const utterance = new SpeechSynthesisUtterance();
+            utterance.lang = 'tr-TR';
+            utterance.text = text;
+
+
+            utterance.onend = function() {
+                console.log('Konuşma tamamlandı.');
+            };
+
+
+            speechSynthesis.speak(utterance);
+        }
+
+        async function addMessageToChat(sender, message, className) {
             const chat = document.getElementById('chat');
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${className}`;
-            messageDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
             chat.appendChild(messageDiv);
             chat.scrollTop = chat.scrollHeight;
+
+            if (className === 'bot') {
+                for (let i = 0; i < message.length; i++) {
+                    await new Promise(resolve => setTimeout(resolve, 10));
+                    messageDiv.innerHTML += message[i];
+                    chat.scrollTop = chat.scrollHeight;
+                }
+                 speakText(message);
+            } else {
+                messageDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            }
         }
     </script>
 </body>

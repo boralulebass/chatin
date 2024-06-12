@@ -1,10 +1,135 @@
 {"intents":[
     {
-        "tag": "selamlaşma",
-        "patterns": ["merhaba", "selam", "selamlar", "hey"],
-        "responses": ["Merhaba!", "Selam!", "İyi günler!", "Selam :)"]
+        "tag": "ondemand projesi youtube yanımda",
+        "patterns": ["ondemand projesi nedir", "ondemand projesi hangi makinada çalışır", "ondemand projesinde ne tür faturalar üretilir", "youtube yanımda faturaları nerede üretilir"],
+        "responses": ["Youtube ve yanımda faturalarının oluşturulduğu ve müşterilere aktarıldığı projedir. OndemandInvoice projesi kapsamında FTP’ye bırakılan fatura ham data dosyalarının işlenip e-Fatura için NI, e-Arşiv için NV, NGW ve NIB uygulamalarına aktarımını ve ilgili faturalara ait günlük raporların oluşturulmasını sağlayan geliştirmeler yapılmıştır.\n\nUygulama testte 1234, canlıda 1234 IP’li makinelerde bulunmaktadır.\n\n Detaylı bilgi için: https://wiki.url/pages/viewpage.action?pageId=659754889Z "]
     },
     {
+        "tag": "hip devreye alımı",
+        "patterns": ["hip nasıl canlıya alırım", "hip canlıya alacağım ne yapmalıyım", "hipi nasıl değiştiririm", "hip devreye alımı"],
+        "responses": ["Güncellenecek hiplerin adlarının Solution'dan istendiği gibi geldiğine emin olunur. Yazılım ekibi ile mutabık kalınan istenen Hip isim listesini linkten kontrol edebilirsiniz.\nGelen hip dosyaları PC2'de (.03) E:\\HIP dizinine bırakılır.\nUC4 üzerinden HIP_CANLIYA_ALIM işi execute edilir. \nExecute sonrası report kontrol edilmelidir. Link: https://wiki.url/display/INVSRVOPS/HIP+DEVREYE+ALIM+OTOMASYON"]
+    },
+    {
+        "tag": "pdf imza servisi",
+        "patterns": ["pdf imza servisi nedir","pdf imza servisi nasıl çalışır","pdfler nasıl imzalanır"],
+        "responses": ["Uygulamanın genel çalışma prensibinden bahsetmek gerekirse; uygulama, parametrik olarak belirtilen baslangıç dizinindeki tüm pdf uzantılı dosyaları okur ve bunların imza servisine göndermek üzere hash/özet değerini hesaplar. Ardından bu değerleri eş zamanlı olarak, paralel çalışmakta olan imza servislerine HSM’de imzalanmak üzere toplu halde iletir(karşı sunucudaki web serviste yer alan “eArsivImzala” işlemi tetiklenir). Bu servislerden dönen imzalı verileri mali mühür, orijinal veri vb. verilerle HADES imza formatına göre birleştirerek, yine en başta parametrik belirtilen sonuç dizinine aynı dosya isimleriyle kaydeder. Uygulamada tanımlı tüm parametrik değerler ayrıca madde madde belirtilmiştir. Detaylı bilgi için: https://wiki.url/pages/viewpage.action?pageId=624019249"]
+    },
+    {
+        "tag": "userlist diagram",
+        "patterns": ["userlist nasıl çalışır","mükelleflik kontrolü nasıl yapılır","userlist kontrolü nasıl yapılır"],
+        "responses": ["Sistem GİB'ten userlist paketini indirir.\n\n Servis userlist'i açar ve ilgili tabloya insert eder.\n\nKRM sistemleri sadece kayıt sırasında tckn/vkn sorgular.\n\nServis sorgulanan tckn/vkn'nin ilgili tabloda olup olmadığını sorgular.\n\nYeni proje kapsamında oluşturulacak sistem delta datasını KRM sistemlerine gönderir.\n\nKRM, ZIBCO'ya order çıkar.\n\nZIBCO ilgili sistemlere çağrı yapar.\n\nCeren'den bozuk data gelir.\n\n WA kapsamında NI'dan güncel data alınır.\n\n Sistemlerden çıkan XLOG'lar dağıtım sistemlerine gönderilir. Diagramı incelemek için: https://wiki.url/display/INVSRVOPS/UserList+Diagram"]
+    },
+    {
+        "tag": "xlog maskeleme gizleme",
+        "patterns": ["xlogu nasıl maskelerim", "xlog nasıl maskelenir", "xlog maskelemek istiyorum"],
+        "responses": ["Invoicepaint şemasında xlog_mask adında yeni bir prosedür geliştirildi.\n\n\n\nProsedürün amacı:  \nABU veya KBU için, xlog dosyasındaki müşteriyi adresleyen gsm_no, name,adres,tax_number ve tckn bilgilerini maskeleyerek _fix uzantılı yeni bir xlog oluşturur.\n\nXlogta yer alan, CDR, FTRA için de maskelemeyi yapar.\n\nMaskeli xlog üretme süreci devamı için:\n https://wiki.url/display/INVSRVOPS/Xlog+Maskeleme"]
+    },
+    {
+        "tag": "sunucu şifre unlock işlemi",
+        "patterns": ["sunucu şifresi locklandı ne yapmalıyım", "sunucu şifresini nasıl unlock ederim", "sunucu şifresi unlock nasıl edilri"],
+        "responses": ["https://hy.hakan.com.tr/authorization.do\n\n adrese giriş yaptığımızda  alt kısımda Account locked out? / (Personal + Generic Users) kısmına tıklayıp devam ediyoruz. İlgili giriş bilgilerini doldurup devam ettikten sonra yönetici onayı için mail gitmektedir. Onay şifresini girdiğimiz zaman işlem tamamlanmış olur."]
+    },
+    {
+        "tag": "nöbet süreçleri",
+        "patterns": ["nöbet yönlendirme nasıl yapılır", "başkasına nasıl nöbet geçiririm", "nöbetimi başkasına nasıl teslim ederim?","nöbet süreçleri nasıl belirleniyor"],
+        "responses": ["Nöbetlerimiz fatura dönemi bazlı olarak HKNPRO0 arbor şeması altındaki invoicing_cool tablosunda bulunmaktadır. Her sabah 8'de bu tablodan o günün hangi fatura döneminde olduğuna göre nöbet ataması yapılır.\n\nSELECT * FROM ALABORA.INVOICING_COOL ORDER BY SIRA\n\n\n. Nöbet değişikliği tablodaki \"SIRA\" bilgisine göre her dönem UC4 üzerinden NOBET_GECIRIYORUM işinden otomatik yapılır. \"SIRA\" bilgisi değiştirilerek sonraki dönem nöbetçisi değişikliği yapılabilir.\n\n EDIT /* SR-4322248 */  ALABORA.INVOICING_COOL ORDER BY SIRA\n\n\n. Yeni bir nöbetçi tanımlaması aşağıdaki örnek sorguyla yapılabilir.\n\nINSERT INTO /* SR-4322248 */  ALABORA.INVOICING_COOL VALUES ('Hakan Duygu', '5333333333', 7)\n\n\n Anlık nöbet değişiklikleri için UC4 üzerindeki MANUEL_NOBET_YONLENDIRME işi çalıştırılarak yönlendirilecek kişi seçilir.\n\n"]
+    },
+    {
+        "tag": "disk ve ram talepleri",
+        "patterns": ["disk talebinde bulunacağım ne yapmalıyım", "disk ve ram talebi nasıl açılır", "disk talebinde nasıl bulunurum", "makineye disk nasıl ekletirim"],
+        "responses": ["1.CAXIMO → IT Infratstructure → New IT Infrastructure, kırılımından yeni kayıt (NIIR) oluşturulur.\n\n Her bir sunucu için hangi disklere ekleme yapılacağını veya yeni disk ekletileceğini ilgili spoc'a belirtebilrisiniz. Eğer disklerin offline olarak makinelere atanmasını, hemen makinelerimizdeki çalışmakta olan disklere extend işlemi yapılmasını istemiyorsanız:\n\nKayıt açıldıktan sonra, kayıtta ilgilenen spoc ile iletişime geçip \"makinelere disklerin sadece offline tanımlanması/atanması gerektiği ve ihtiyaç durumunda ekibimizin makinedeki istediği diske alan ekletmek için harekete geçeceği\" konusunda bilgilendirmelisiniz.\n\nDB sunucusunda Oracle kullanılıyor ise Oracle DB için atanan diskler filesystem için atanan disklerden farklı olduğundan ve performans kaybına sebep olacağından offline tanımlama sağlıklı olmayacaktır, ihtiyaç olduğunda disk tanımlama işlemi yapılması gerekmekte.  \n\nDB sunucusunda db'ye değil diske/dizine ekleme yapmak istiyorsanız özellikle disk/dizin/filesystem belirtmeniz gerekmektedir. Eğer DB için alan ekletecekseniz disk tanımlaması sonrası ilgili Db ekibinin (Oracle/Mssql) ayrıca ASM tanımlaması yapması gerekiyor.\n\n\n\n4. SPOC gerekli işlemleri yaptıktan ve disklerin makinelere tanımlanması sonrası yapılacak işlemler: \n\nEğer Makine Windows İse:\n\nMaximo -> Go To -> IT Infrastructure -> Service Request -> Windows Service Requests üzerinden SR oluşturulur. Talep içeriğine önceden açtığımız NIIR numarası yazılmalıdır ve disklerin mevcut diskin üzerine extend mi yoksa yeni bir dizin olarak mı oluşturulacak belirtilmelidir. Eğer Makine Linux/Unix İse:\n\nProd sunucular olduğu için Unix tarafında disk operasyonları RFC kayıtlarıyla yapılıyor. IT-UNIX ekibi ile görüşülüp aşağıdaki gibi bir RFC açılması gerekiyor.\n\nImplementer: Ahmet \nBirim: IT-IT UNIX\nManager: Mehmet \nSenior Manager: Hasan  olarak verilmiştir. Detaylı bilgi için: https://wiki.url/pages/viewpage.action?pageId=693528779  "]
+    },
+    {
+        "tag": "invoicing yeni çalışan klavuzu",
+        "patterns": ["invoicing'de yeni çalışanlara klavuz gerekiyor", "invoicing'de yeni çalışanlara başlama klavuzunu nedir", "invoicing'de yeni çalışanlara yardımcı olur musun"],
+        "responses": ["Jetcool Alarms (Ekibimize açılan alarmların takip edilebileceği ekran),Taxino Alarms (Ekibimize açılan Taxino kayıtları),ZAR ( Sistemsel sorunlarda duyuru ekranı),Service Request ( Ekibimize açılan iş talebi veya iş isteği oluşturabileceğimiz ekran)NFC (Canlıya alım proje takibi),Vulnerability (Zafiyet alarmları)LINK: https://URL/Dashboard/Index/26?type=2Ekibimize açılan iş talebi veya başka ekiplere açtığımız iş isteklerini oluşturabileceğimiz ekran.LINK: https://URL/application/TRSRÇağrı merkezinden gelen talepler, Yetki talepleri, Db ekibine açılan talepler gibi vs. işlemler yapılmasını sağlayan portaldir.LINK: https://URL/maximo/ui/maximo.jspAçtığımız ve takip ettiğimiz geliştirme ve ekleme taskları, SEFECT( Yazılım ekibine kaynaklanan sorunla alakalı açılan task) açılması, NFC (Canlıya alım için proje takibine istinaden açılır) açılması gibi genel tasklarımızın olduğu ekrandır.LINK: https://URL/secure/RapidBoard.jspa?rapidView=11408&projectKey=INVSEROPe-Fatura'ların olduğu portal.LINK: https://NI:8443/fastlogin/index.html?returnUrl=/e-Arşiv'lerin olduğu portal.LINK: https://NIB/Portal/layouts/invoices.aspxe-Mail'lerin gönderildiği ve takip portalı.LINK: https://NGW/layouts/login.aspxYapılan işlerin veya sorunlarımızın vs. gibi bilgi amaçlı okuyabileceğimiz ve gerektiğinde okuyarak uygulayabileceğimiz bilgi ekranıdır.LINK: https://wiki/display/INVSRVOPS/Abonelerin e-Fatura, e-Arşiv, CDR kayıtlarının pdf veya görsellerinin tutulduğu portaldır. Aynı zamanda diğer L1 ekiplerininde yetki alındığı takdirde ulaşabildiği portaldır.LINK: http://NV/nv/Ekranda sol tarafta menüde görüldüğü üzere ekibimize ait makinelere veya kişisel olarak talep ve isteklerimizin yapıldığı portaldır.LINK: https://KLORA/"]
+    },
+    {
+        "tag": "cbu bireysel faturalama",
+        "patterns": ["cbu faturalama nasıl yapılır", "cbu faturalama nasıl yapılır", "bireysel cbu faturalama nasıl yapılır"],
+        "responses": ["HFX Unix (1234) sunucusunda /d106/invprint/data_cbu altına datalar gelmeden önce TEMIZLIK_CBU akışı fatura akışı içerisinden çalıştırılmış olmalıdır.\n\nFatura otomatik olarak başlayacaktır. (QUEUE.INVOICING kuyruğundadır: CBU_FATURA_EVENT işi BILLING_CYCLE_TIMELINE akışını çalıştırır)\n\nFatura sonrası rapor (FSK) otomatik çalışarak mail ile iletilecektir. Gelen rapor incelenmelidir. Eksikik var ise aksiyon alınmalıdır. Detaylı bilgi için: https://wiki.url/display/INVSRVOPS/CBU"]
+    },
+    {
+        "tag": "vbu kurumsal faturalama",
+        "patterns": ["vbu faturalama nasıl yapılır", "vbu faturalama nasıl yapılır", "kurumsal cbu faturalama nasıl yapılır"],
+        "responses": ["HFX Unix (1234) sunucusunda /d106/invprint/data_cbu altına datalar gelmeden önce TEMIZLIK_VBU akışı fatura akışı içerisinden çalıştırılmış olmalıdır.\n\nFatura otomatik olarak başlayacaktır. (QUEUE.INVOICING kuyruğundadır: VBU_FATURA_EVENT işi CEREN_BASKI_REDESING_TIMELINE akışını çalıştırır.)\n\n\nFatura sonrası rapor (FSK) otomatik çalışarak mail ile iletilecektir. Gelen rapor incelenmelidir. Eksikik var ise aksiyon alınmalıdır. Detaylı bilgi için: https://wiki.url/display/INVSRVOPS/VBU"]
+    },
+    {
+        "tag": "fatura badi liste",
+        "patterns": ["fatura badi listesini verir misin", "fatura badim kim", "fatura badileri kimler"],
+        "responses": ["Hasim\tAlpaslan\n Gulcan\tHakan\n Alpaslan\tHaşim\n Murat\tBora \nBora\tMurat\n Hakan\tGülcan"]
+    },
+    {
+        "tag": "fatura hata",
+        "patterns": ["faturamda hata aldım ne yapmalıyım", "uc4 da hata aldım ne yapmalıyım", "fatura süreci durdu", "faturamda hata var"],
+        "responses": ["Fatura sürecinde hata aldıysanız size yardımcı olabilecek olan dokümana bakmalısınız: https://wiki.url/pages/viewpage.action?pageId=624016037"]
+    },
+    {
+        "tag": "parçalı fatura",
+        "patterns": ["parçalı fatura geldi nasıl yaparım", "parçalı fatura nasıl yaparım"],
+        "responses": ["TEMIZLIK_CBU ve TEMIZLIK_VBU işleri çalıştırılmış olmalıdır. (Tekrar çalıştırılmasında sakınca bulunmamaktadır.)\n\nQUEUE.DOC1_FILE_CHECK_EVENT üzerinde Hierarchical sekmesine tıklanarak, Start time'ı güncel döneme ait olmayan tüm işler sonlandırılır. (OTOMATİKLEŞTİRİLDİ KONTROL EDİLMELİ)\n\n\nVBUSAYAR ve CBUSAYAR UC4 üzerinden çalıştırılıp parçalı faturaların bize gönderildiği teyit edilir. (dönem bilgisi değiştirilip kaydedildikten sonra Execute edilip reportuna bakılır).\nkaç fatura iletildiyse o sayıda değer göreceksin,istenilenden eksik yada fazla olması durumunda billing nöbetçisi ile konuşmalısın)\nÜretilecek fatura;\nEBU ise CEREN_BASKI_REDESING_PARCALI\nCBU ise CEREN_BASKI_CBU_PARCALI akışı EXECUTE edilir.\n\nAçılan ekranda INVOICE PERIOD (ör: 202201), Donem seçeneğinden uygun seçim yapılarak DONE tıklanır."]
+    },
+    {
+        "tag": "vice fatura serileri",
+        "patterns": ["vice fatura serileri neler", "vice serileri neler", "vice prefixleri neler"],
+        "responses": ["e-Fatura VBU: KAF, KBF, KCF, KDF, KEF, KFF, CBU: N0F, N1F, N2F, N3F, N4F, N5F / e-Arşiv VBU: KAA, KBA, KCA, KDA, KEA, KFA CBU: N0A, N1A, N2A, N3A, N4A, N5A,"]
+    },
+        {
+        "tag": "vice manuel cdr oluşturma",
+        "patterns": ["vice'ta manuel cdr nasıl oluştururum", "vice parçalı cdr geldi ne yapmalıyım", "vice cdr oluşturmam lazım", "vice cdr nasıl oluşturulur?"],
+        "responses": ["Cerenden PC6 D\\Vibe_ExtractionCDR dizinine datalar gönderilir.\nDizine gelen datalar D\\ManuelCDR_VBU\\data dizinine atılır.\nManuelCDR_VBU dizini içindeki sırasıyla 1.ve 2.bat çalıştırılır.\nps klasörünün içindeki önce .ps dosyası sonra ise .jrn dosyası Netvaultapp (1234)\\F\\NVV2.1\\Process dizinine atılır."]
+    },
+    {
+        "tag": "yts gecikme bedeli faturaları",
+        "patterns": ["yts gecikme bedeli faturaları nasıl işlenir", "gecikme bedeli faturaları","gecikme bedeli faturaları otomasyonu"],
+        "responses": ["Her ayın ilk haftası PC6 makinesindeki  D:\\yts  dizini altına tarih bazlı olarak bırakılır. Data için Ayşe Fatma Hayriye mail atar. Mailden sonra hemen üretime alınması gerekmektedir.\n\n \n D:\\yts'de\n\nbireysel olanlar (0 kb harici datalar alınır) D:\\Doc1Dev\\UC4\\YTS_Bireysel\\data;\n\nkurumsal klasöründekiler (0 kb harici datalar alınır) D:\\Doc1Dev\\UC4\\YTS_Kurumsal\\data altına taşınır.\n \n3.    UC4 11. clientta bulunan YTS_OTOMASYON_CALISTIR işi başlatılır ve flow takip edilir."]
+    },
+    {
+        "tag": "nas disk projesi",
+        "patterns": ["nas diski projesi nedir","nas diski projesi nasıl çalışır","nas diski hangi uygulamada için çalışır"],
+        "responses": ["Nas Disklerinin Yedeklenmesi Projesi, NV uygulamasında arşivlenen fatura görsellerine ait disklerde tutulan dosyaların yedeklenmesini kapsamaktadır.İlgili geliştirme için bir windows servis geliştirmesi yapılıp, yedeklenen dosyaların kayıtlarının tutulduğu iki yeni tablo uygulama veritabanına eklenmiştir. LINK: https://URL/display/INVSRVOPS/NAS+Disk+Projesi"]
+    },
+    {
+        "tag": "sap fatura arşivleme",
+        "patterns": ["sap faturayı nasıl arşivlerim?","sap fatura arşivleme işlemi","sap faturaları arşivleme aşamaları nedir"],
+        "responses": ["1234 (nv app)  makinesinde Process klasörüne SAP faturaların pdf'leri gelmektedir. Fatura dönemlerinde kontrol edilip aksiyon alınması gerekmektedir. Detaylı bilgi için LINK: https://URL/pages/viewpage.action?pageId=644584853"]
+    },
+    {
+        "tag": "earşiv suret eksikliği",
+        "patterns": ["e-arşiv suretim eksik ne yapmalıyım", "eksik e arşiv suret var", "earşiv suret nasıl üretirim"],
+        "responses": ["Belirtilen account_no, tel_no veya fatno ile aşağıdaki sorgudan ilgili fatura bulunur.\n\nSELECT telno, adi, vd_hesno, son_ode_tar, fat_tarih, fat_donem, fatno, ayadi_yil, donemkodu, einvoice_id, tc_id_no, bill_dist_code, ouf_name, BILL_TO_EMAIL2, BILL_TO_EMAIL1, IS_CBU\nFROM genelhkn.fatura\nWHERE fatno='D****'\norder by fat_tarih desc;\n \n\nBulduğumuz ilgili fatura MOF değil ise, NV'ta Suret üzerinden kontrol ettiğimizde kayıt çıkmıyorsa üretim yapılması gerekir.\n\n\nGenelhkn sorgusunda OUF_NAME sütunundaki .xlog dosya adı kopyalanır.\n\nHFX Unix (1234) sunucusunda, /dizin/dizin dizini altında fatura hangi döneme ait ise ve IS_CBU değerine göre (C=CBU, E=KNN) ilgili klasörde kopyalanan xlog adı aratılır. Arama yapılırken sonuna * eklenmelidir. Eğer 2-3 tane aynı dosya ismiyle bulursa detailofother klasöründen masaüstüne alınır.\n\nEğer CBU datası alınıyorsa satır sayısı ve dosya boyutu çok fazla olduğu için EMEditor kullanılmalıdır.\n\nKopyalanan dosya açılarak fatura numarası aratılır. (Kopyalanan dosya .gz formatında ise zip uygulamasıyla çıkartılmalıdır.)\n\nİlk bulunan satır (FTRA ile başlar) kalacak şekilde üstündeki tüm satırlar silinir.\n\n\nTekrar arama yapılarak \"FTRA\" kelimesi aranır. En üstte bıraktığımız FTRA'dan sonra ilk gelen FTRA kelimesinin olduğu satır ile birlikte aşağısındaki tüm satılar silinerek xlog dosyası kaydedilir. \n\nSonrasında aşağıdaki codeblock'taki adımlar uygulanır;\n--VBU için aşağıdaki sorguyla son numara alınır. Son numaraya +1 eklenir.\n \n \nSELECT max(invoiceid) FROM ib (nolock) where invoiceid like 'K992024%'\n \n--CBU için aşağıdaki sorguyla son numara alınır. Son numaraya +1 eklenir.\n \nSELECT max(invoiceid) FROM ib(nolock) where invoiceid like 'N992024%'\n→ Aşağıdaki adımlar önceside ortamların temiz olduğundan emin olunmalıdır. Klasörler kontrol edilmelidir.\n\n→ İlgili düzenlenen xlog'lar \\\\1234\\D$\\ManuelEArsiv\\data klasörüne atılır.\nİlgili düzenlenen xlog'lar \\\\1234\\D$\\ManuelEArsiv_VBU\\data klasörüne atılır.\n Klasör içerisindeki .bat dosyaları sırasıyla çalıştırılır.\n→ D:\\ManuelEarsiv\\e_arsiv_ubl içerisinde xml dosyaları;\nCBU ise \\\\1234\\d$\\DigitalPlanet\\NIBatch\\CERENCBU içerisine kopyalanır.\nVBU ise  \\\\1234\\d$\\DigitalPlanet\\NIBatch\\CEREN içerisine kopyalanır.\n→ D:\\ManuelEarsiv\\ps içerisindeki dosyalar \\\\1234\\f$\\NVV2.1\\Process içerisine kopyalanır.\n→ D:\\ManuelEarsiv\\arsiv içindeki .jrn dosyalarını D:\\ManuelEarsiv\\signed_pdf içerisindeki klasörlerin içerisine ilgili .jrn dosyaları kopyalanır ve o haliyle \\\\1234\\f$\\NVV2.1\\Process içerisine kopyalanır."]
+    },
+    {
+        "tag": "mükellefiyet kontrolü",
+        "patterns": ["mükellef kontrolü nasıl yaparım", "müşterinin mükellefiyetini nasıl bulurum", "müşteri ne mükellefi"],
+        "responses": ["E-arşiv veya e-fatura mükellefi olup olmadığı DB (1234) makinesinden \"einvoicepostbox\" tablosuna sorgu atılıp bakılabilir. Örnek sorgu aşağıdaki gibidir.\n\n\n\nÖrn:  select * from dbo.einvoiceuserssenderpostbox  where vkntckn='99999999'"]
+    },
+    {
+    "tag": "yts mektupları",
+    "patterns": ["yts mektupları nedir","yts mektupları nasıl çalışır","yts mektupları ne zaman çalışır"],
+    "responses": ["Yasal Takibe girmiş aboneler için hukuki işlemlerin başlatılabilinmesi için mektup üretimi invoicing ekibimiz tarafından yapılmaktadır. BTK mevzuatına göre bu mektup zorunludur.YTS sistemi olan PCC, .txt olarak ham datayı TFX'te XY klasöründe mektup34.txt olarak aktarır. PCC'de x tablosunda kayıtlı tatil günlerinde dosya gelmez. Üretim için UC4 11. clientta MEKTUP_START_SCRIPT hergün dosya kontrolünü yapar. Dosya var ise MEKTUP34_OTOMASYON_FLOW İŞİNİ ÇALIŞTIRIR. LINK: https://URL/display/INVSRVOPS/YTS+MEKTUP"]
+    },
+    {
+    "tag": "efatura mof eksikliği",
+    "patterns": ["efatura mof eksikliği durumunda ne yapılmalı","mükellefi değişen faturalar için ne yapabilirim","mükellef değişikliği nedir"],
+    "responses": ["Belirtilen kolon1, kolon2 veya kolon3 ile aşağıdaki sorgudan ilgili fatura bulunur. kolon4='MOF' olup olmadığı kontrol edilir.MOF İSE; efatura sunucusunda NI portal üzerinden kolon5 ile aranır. Fatura portalde yok ise efatura sunucusunda aşağıdaki sorgu ile kontrol sağlanır.Stacktrace alanı ERROR ile başlıyor ise GİB şematron kontrolünden geçemediği, UBL in düzeltilip tekrar hotfolderdan yüklenmesi gerekmektedir.Eğer kayıt çıkmıyor ise aşağıdaki işlemlere devam edilir.Genelf sorgusunda kolon6 sütunundaki .xlog dosya adı kopyalanır.TFX Unix (1.2.3.4) sunucusunda, X dizini altında fatura hangi döneme ait ise ve kolon7 değerine göre ilgili klasörde kopyalanan xlog adı aratılır. Arama yapılırken sonuna * eklenmelidir. Eğer 2-3 tane aynı dosya ismiyle bulursa detailofother klasöründen masaüstüne alınır.Eğer CBU datası alınıyorsa satır sayısı ve dosya boyutu çok fazla olduğu için EMEditor kullanılmalıdır.Kopyalanan dosya açılarak fatura numarası aratılır. (Kopyalanan dosya .gz formatında ise zip uygulamasıyla çıkartılmalıdır.)İlk bulunan satır (FTRA ile başlar) kalacak şekilde üstündeki tüm satırlar silinir.Tekrar arama yapılarak FTRA kelimesi aranır. En üstte bıraktığımız FTRA'dan sonra ilk gelen FTRA kelimesinin olduğu satır ile birlikte aşağısındaki tüm satırlar silinir.kolon9='MOF' değil ise bu numara xlog'daki tüm hepsine replace all ile aşağıdaki sorguda gelen en yüksek fatura numara'yi 1 arttırarak değiştirilir. Dosya kaydedilir.--VABU için aşağıdaki sorguyla son numara alınır. Son numaraya +1 eklenir.--CCBU için aşağıdaki sorguyla son numara alınır. Son numaraya +1 eklenir.y klasöründe sil.bat çalıştırılır. Gelen ekranda Y tuşuyla onay verilerek ekranın kapanması beklenir.Hazırlanan xlog CABU ise z içine atılır. VBU ise d içine atılır.Fatura CABU ise CABU klasörünün içindeki bat çalıştırılır. Eğer VABU ise VABU klasöründeki bat çalıştırılır.  "]
+    },
+    {
+        "tag": "vendor çalışan yetki işlemleri",
+        "patterns": ["vendor çalışanlara hangi yetkiler alınmalı", "vendor yetkileri neler", "vendor çalışana hangi yetkileri almalıyım?"],
+        "responses": ["Yetkileri almanın bir çok adımı bulunuyor ilk olarak → Fiona üzerinden \"Firewall Zone Formu\" seçeneğine tıklanıp;\n→ Hesap Sahibi : Ucuncu Parti Calisan Adina\n→ Talep Tipi : Firewall Zone(FZ)\n→ Yetki Tipi : Bireysel\n→ Talep detaylarına zorunlu olarak 1 adet ip ve port bilgisi girmek zorundayız. \"Ekle\" kısmından ilgili eklediğimiz excelden herhangi 1 adet örnek satıların hepsi girilir.\n→ İlgili excel formunu \"Kaynak ADI\" ve \"Kaynak IP\" kısımlarını vendor pc bilgilerini girerek kaydedilir ve \"Ek dosyalar\" kısmına eklenir.\n→ Talep açıklamasına \"Selamlar, İlgili Exceldeki ip ve portlara erişim için işleme alabilir misiniz?\" yazılır ve gönderilir.\n→ Sonrasında yöneticiye bilgi verilir onay vermesi için. Diğer adımlar için: https://wiki.url/pages/viewpage.action?pageId=683116447"]
+    },
+        {
+        "tag": "NV arşivlenmiş dosya silme",
+        "patterns": ["NV üzerinden dosya nasıl silerim", "arşivlenmiş dosya nasıl silerim", "arşivlenmiş dosya silmeliyim"],
+        "responses": ["NV DB'den arşivlenen dosyaların silinmesi için aşağıdaki SP kullanılmalıdır.\n\nSELECT * FROM archivefile --tablosundan silinmesi istenen kaydın idsi aşağıdaki prosedüre verilerek çalıştırılmalıdır.\nEXEC del_archivefilerlbk 1153734 - buradaki sayı yerine kaydın id si yazılır. Tırnak veya paranteze almıyoruz."]
+    },
+        {
+        "tag": "hal hatır sorma",
+        "patterns": ["naber", "nasılsın", "iyi misin?", "nasıl gidiyor?"],
+        "responses": ["İyiyim teşekkür ederim", "İyiyim sağolun", "İyi diyelim iyi olsun"]
+    },
+        {
         "tag": "hal hatır sorma",
         "patterns": ["naber", "nasılsın", "iyi misin?", "nasıl gidiyor?"],
         "responses": ["İyiyim teşekkür ederim", "İyiyim sağolun", "İyi diyelim iyi olsun"]
@@ -22,12 +147,12 @@
     {
         "tag": "saat",
         "patterns": ["saat kaç?", "zamanı söylermisiniz?", "saat ne"],
-        "responses": ["Maalesef öyle bir fonksiyonum hernüz yok.", "Saat kaç bilmiyorum", "Bora ile Hakan'a sorun :("]
+        "responses": ["Maalesef öyle bir fonksiyonum henüz yok.", "Saat kaç bilmiyorum", "Bora ile Hakan'a sorun :("]
     },
     {
         "tag": "isim",
         "patterns": ["adın?", "senin ismin", "ismin nedir?"],
-        "responses": ["Benim adım ChatIn.", "Bana ChatIn diyebilirsiniz.", "İsimim ChatIn." ,"Adım ChatIn ama sen Çetin diyebilirsin."]
+        "responses": ["Benim adım ChatIn.", "Bana ChatIn diyebilirsiniz.","Adım ChatIn ama sen Çetin diyebilirsin."]
     },
     {
         "tag": "günaydın",
@@ -61,8 +186,8 @@
     },
     {
         "tag": "şirket",
-        "patterns": ["hangi şirkete çalışıyorsun?", "şirketin", "şirketin ne","nerede çalışıyorsun"],
-        "responses": ["Vodafone", "Vodafone'da Invoicing ekibi için çalışıyorum"]
+        "patterns": ["hangi şirkete çalışıyorsun?", "şirketin", "şirketin ne"],
+        "responses": ["Invoicing ekibi için çalışıyorum"]
     },
     {
         "tag": "Fatura üretim süreci",
